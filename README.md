@@ -1,6 +1,6 @@
-# Agile Planning Poker Application
+# Agile Planning Poker
 
-A modern, full-featured Planning Poker application built with Angular 18 and Node.js Express server that replicates and enhances the functionality of planningpokeronline.com for agile estimation sessions.
+A modern, open-source Planning Poker application for agile estimation sessions, built with Angular 18 and a Node.js / Express backend with real-time WebSocket support.
 
 ![Planning Poker](https://img.shields.io/badge/Planning%20Poker-Real%20Time-blue)
 ![Angular](https://img.shields.io/badge/Angular-18-red)
@@ -125,7 +125,7 @@ agile-planning-poker-app/
 
 1. **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/your-username/agile-planning-poker-app.git
 cd agile-planning-poker-app
 ```
 
@@ -300,12 +300,12 @@ npm test                   # Run backend tests (when implemented)
 
 ### Build the Image
 ```bash
-docker build --no-cache -f Dockerfile -t cutter777/planning-poker-app:master .
+docker build --no-cache -f Dockerfile -t <your-dockerhub-username>/planning-poker-app:latest .
 ```
 
 ### Push to Docker Hub
 ```bash
-docker push cutter777/planning-poker-app:master
+docker push <your-dockerhub-username>/planning-poker-app:latest
 ```
 
 > **Note:** You must be logged in to Docker Hub before pushing (`docker login`).
@@ -385,26 +385,14 @@ docker push cutter777/planning-poker-app:master
 
 ## 📄 License
 
-This project is **source-available** and released for personal, educational, and non-commercial use.
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
 
-**You are free to:**
-- View, clone, and fork the source code
-- Use the software for personal or internal non-commercial purposes
-- Contribute improvements via pull requests
-
-**You may NOT, without prior written consent from Xidisk Software Solutions:**
-- Sell, license, or sublicense this software or any derivative work
-- Offer this software (or a hosted version of it) as a paid product or service
-- Include this software in a commercial product
-
-For commercial licensing enquiries, please contact Xidisk Software Solutions.
-
-> This license is **not** an OSI-approved open source license. Commercial reproduction or resale requires explicit written permission.
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, subject to the conditions in the license.
 
 ## 🙏 Acknowledgments
 
-- Inspired by planningpokeronline.com
-- Built with modern web technologies
+- Inspired by the planning poker estimation technique popularized in agile / Scrum teams
+- Built with modern open-source web technologies
 
 ## 📧 Support
 
@@ -416,38 +404,7 @@ For support, feature requests, or bug reports:
 ---
 
 **Happy Planning Poker! 🎯🃏**
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/
-│   │   │   │   ├── create-game/     # Game creation page
-│   │   │   │   └── game-session/    # Game session page
-│   │   │   └── services/
-│   │   │       ├── game.service.ts  # HTTP API service
-│   │   │       └── socket.service.ts # Socket.io service
-│   │   └── styles.scss              # Global styles
-│   └── package.json
-├── server/                          # Node.js backend
-│   ├── index.js                     # Express + Socket.io server
-│   └── package.json
-└── package.json                     # Root package.json
-```
 
-## Getting Started
-
-### Prerequisites
-- Node.js (v16 or higher recommended)
-- npm or yarn package manager
-
-### Installation
-
-1. **Clone and install dependencies:**
-   ```bash
-   git clone <repository-url>
-   cd agile-planning-poker-app
-   npm run install:all
-   ```
-
-2. **Start development servers:**
    ```bash
    npm run dev
    ```
