@@ -13,7 +13,7 @@ const PORT = process.env.PORT || 3000;
 
 // Build allowed origins from environment variable or fall back to localhost defaults
 const defaultOrigins = [
-  `http://localhost:4200`,
+  `http://localhost:8080`,
   `http://localhost:3000`,
   `http://localhost:${PORT}`
 ];
@@ -182,7 +182,7 @@ app.post('/api/games', async (req, res) => {
     games.set(game.id, game);
 
     // Generate QR code for the game URL
-    const gameUrl = `http://localhost:4200/game/${game.id}`;
+    const gameUrl = `http://localhost:8080/game/${game.id}`;
     const qrCode = await QRCode.toDataURL(gameUrl);
 
     res.json({

@@ -140,7 +140,7 @@ npm run dev
 ```
 
 This will start:
-- Frontend server at: `http://localhost:4200`
+- Frontend server at: `http://localhost:8080`
 - Backend server at: `http://localhost:3000`
 
 ### Individual Development
@@ -411,10 +411,10 @@ For support, feature requests, or bug reports:
 
    This starts:
    - Backend server on `http://localhost:3000`
-   - Frontend Angular dev server on `http://localhost:4200`
+   - Frontend Angular dev server on `http://localhost:8080`
 
 3. **Open the application:**
-   Navigate to `http://localhost:4200` in your browser
+   Navigate to `http://localhost:8080` in your browser
 
 ### Available Scripts
 
@@ -437,7 +437,7 @@ From the server directory:
 
 ### Creating a Game
 
-1. Visit the home page at `http://localhost:4200`
+1. Visit the home page at `http://localhost:8080`
 2. Fill in the game configuration:
    - **Game Name**: Enter a descriptive name for your planning session
    - **Voting System**: Choose from Fibonacci, T-Shirt sizes, Powers of 2, or Sequential
