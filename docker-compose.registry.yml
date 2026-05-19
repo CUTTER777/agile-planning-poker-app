@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   agilepoker:
-    image: docker.myxidisk.com/agilepoker:latest
+    image: your-registry.example.com/agilepoker:latest  # Replace with your Docker registry
     container_name: agilepoker
     ports:
       - "8089:8089"

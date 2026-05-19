@@ -8,9 +8,23 @@ const path = require('path');
 
 const app = express();
 const server = createServer(app);
+
+const PORT = process.env.PORT || 3000;
+
+// Build allowed origins from environment variable or fall back to localhost defaults
+const defaultOrigins = [
+  `http://localhost:4200`,
+  `http://localhost:3000`,
+  `http://localhost:${PORT}`
+];
+const extraOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
+  : [];
+const allowedOrigins = [...defaultOrigins, ...extraOrigins];
+
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:4200", "http://localhost:3000", "http://localhost:8089", "https://poker.myxidisk.com", "http://poker.myxidisk.com"],
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true
@@ -22,11 +36,9 @@ const io = new Server(server, {
   path: '/socket.io/'
 });
 
-const PORT = process.env.PORT || 3000;
-
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:4200", "http://localhost:3000", "http://localhost:8089", "https://poker.myxidisk.com", "http://poker.myxidisk.com"],
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(express.json());
