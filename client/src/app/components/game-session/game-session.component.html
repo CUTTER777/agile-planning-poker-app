@@ -1,0 +1,405 @@
+﻿<!-- Countdown Overlay -->
+<div class="countdown-overlay" *ngIf="showCountdown">
+  <div class="countdown-number">{{ countdownValue }}</div>
+</div>
+
+<div class="shell-wrapper" (click)="closeUserMenu()">
+  <div class="shell">
+
+    <!-- ─── HEADER ─── -->
+    <header class="header">
+      <div class="header-left">
+        <a class="brand" (click)="exitToMain()" style="cursor:pointer">
+          <svg class="brand-icon" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+            <g transform="rotate(-12, 40, 40)">
+              <rect x="16" y="8" width="44" height="60" rx="6" fill="#e8a042"/>
+              <rect x="16" y="8" width="44" height="60" rx="6" fill="none" stroke="#c47e20" stroke-width="1"/>
+              <path d="M38 22 C38 22 28 30 28 36 C28 39.5 30.8 41.5 34 40.2 C33.2 43 31.5 44.5 31.5 44.5 H44.5 C44.5 44.5 42.8 43 42 40.2 C45.2 41.5 48 39.5 48 36 C48 30 38 22 38 22Z" fill="#7a4a10"/>
+            </g>
+            <rect x="20" y="12" width="44" height="60" rx="6" fill="#ffffff"/>
+            <rect x="20" y="12" width="44" height="60" rx="6" fill="none" stroke="#d0d8e8" stroke-width="1"/>
+            <path d="M42 26 C42 26 32 34 32 40 C32 43.5 34.8 45.5 38 44.2 C37.2 47 35.5 48.5 35.5 48.5 H48.5 C48.5 48.5 46.8 47 46 44.2 C49.2 45.5 52 43.5 52 40 C52 34 42 26 42 26Z" fill="#152b56"/>
+          </svg>
+          <span class="brand-name">Agile Planning Poker</span>
+        </a>
+
+        <div class="header-divider"></div>
+
+        <div class="session-meta" *ngIf="gameState">
+          <div class="session-meta-label">Active story</div>
+          <div class="session-meta-story">{{ gameState.name }}</div>
+        </div>
+        <div class="session-meta" *ngIf="!gameState && !showWelcomeModal">
+          <div class="session-meta-label">Session</div>
+          <div class="session-meta-story">Connecting...</div>
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div class="live-badge" *ngIf="gameState">
+          <span class="live-dot"></span>LIVE
+        </div>
+
+        <button class="btn-icon" *ngIf="isGameModerator" (click)="openEditGameModal(); $event.stopPropagation()" title="Session settings">
+          <svg width="14" height="14" viewBox="0 0 15 15" fill="none">
+            <circle cx="7.5" cy="7.5" r="2" stroke="#64748b" stroke-width="1.2"/>
+            <path d="M7.5 1v1.5M7.5 12.5V14M14 7.5h-1.5M2.5 7.5H1M11.7 3.3l-1.1 1.1M4.4 10.6l-1.1 1.1M11.7 11.7l-1.1-1.1M4.4 4.4L3.3 3.3" stroke="#64748b" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </button>
+
+        <div class="user-pill" *ngIf="playerName" (click)="toggleUserMenu(); $event.stopPropagation()">
+          <div class="user-av">{{ playerName.charAt(0).toUpperCase() }}</div>
+          <span class="user-name-text">{{ playerName }}</span>
+          <svg width="10" height="10" viewBox="0 0 10 10" fill="none" style="margin-left:2px;flex-shrink:0">
+            <path d="M2.5 4l2.5 2.5L7.5 4" stroke="#94a3b8" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+
+          <!-- User Dropdown -->
+          <div class="user-dropdown" *ngIf="showUserMenu" (click)="$event.stopPropagation()">
+            <div class="dropdown-item" (click)="toggleSpectatorMode()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+              {{ isSpectator ? 'Exit spectator mode' : 'Enter spectator mode' }}
+            </div>
+            <div class="dropdown-separator"></div>
+            <div class="dropdown-item danger" (click)="signOut()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                <polyline points="16,17 21,12 16,7"/>
+                <line x1="21" y1="12" x2="9" y2="12"/>
+              </svg>
+              Sign out
+            </div>
+          </div>
+        </div>
+
+        <button class="btn-invite" (click)="toggleInviteModal(); $event.stopPropagation()">
+          <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+            <circle cx="5" cy="4.5" r="2.5" stroke="#ffffff" stroke-width="1.2"/>
+            <path d="M1 11c0-2.2 1.8-4 4-4M9 8v4M11 10H7" stroke="#ffffff" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          Invite players
+        </button>
+      </div>
+    </header>
+
+    <!-- ─── MAIN ─── -->
+    <div class="main" *ngIf="gameState">
+
+      <!-- TABLE AREA -->
+      <div class="table-area">
+
+        <div class="poker-table">
+          <div class="table-surface"></div>
+
+          <!-- PARTICIPANTS -->
+          <div
+            class="participant"
+            *ngFor="let player of players; let i = index"
+            [style.left]="getParticipantPosition(i).left"
+            [style.top]="getParticipantPosition(i).top">
+
+            <!-- Spectator -->
+            <ng-container *ngIf="player.isSpectator">
+              <div class="p-card p-card--spectator">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                  <circle cx="12" cy="12" r="3"/>
+                </svg>
+              </div>
+            </ng-container>
+
+            <!-- Active player -->
+            <ng-container *ngIf="!player.isSpectator">
+              <div class="p-card-wrap">
+                <div class="p-card" [ngClass]="getParticipantCardClass(player)">
+                  <span class="card-num">{{ getPlayerVote(player) }}</span>
+                </div>
+                <div class="voted-pip" *ngIf="playerVotes.has(player.id) && !gameState.isRevealed"></div>
+              </div>
+            </ng-container>
+
+            <div class="p-avatar" [ngClass]="getAvatarColorClass(i)">
+              {{ player.name.charAt(0).toUpperCase() }}
+            </div>
+            <div class="p-name">{{ player.name }}</div>
+            <div class="you-tag" *ngIf="player.name === playerName">you</div>
+          </div>
+
+          <!-- TABLE CENTRE -->
+          <div class="table-centre">
+
+            <!-- Voting state -->
+            <div class="centre-voting" *ngIf="!gameState.isRevealed && !gameState.isModeratorGone">
+              <div class="centre-story-chip">Estimating</div>
+              <div class="centre-story-text">{{ gameState.name }}</div>
+              <div class="centre-progress">
+                <span class="progress-dot"></span>
+                <span class="progress-text">{{ nonSpectatorVoteCount }} / {{ nonSpectatorPlayerCount }} voted</span>
+              </div>
+            </div>
+
+            <!-- Moderator left -->
+            <div class="centre-voting" *ngIf="gameState.isModeratorGone">
+              <div class="centre-story-chip">Session ended</div>
+              <div class="centre-story-text">The moderator has left</div>
+              <button class="centre-action-btn" (click)="exitToMain()">Return home</button>
+            </div>
+
+            <!-- Results state -->
+            <div class="centre-results" *ngIf="gameState.isRevealed && voteResults">
+              <div class="results-chip">Consensus</div>
+              <div class="results-consensus">{{ voteMode }}</div>
+              <div class="results-consensus-label">Story points</div>
+            </div>
+
+          </div>
+        </div><!-- /poker-table -->
+
+      </div><!-- /table-area -->
+
+      <!-- ─── SIDEBAR ─── -->
+      <aside class="sidebar">
+
+        <!-- Story section -->
+        <div class="sidebar-section">
+          <div class="sidebar-label">Current Story</div>
+          <div class="story-title-full">{{ gameState.name }}</div>
+          <div class="story-tags">
+            <span class="story-tag">{{ gameState.votingSystem || 'fibonacci' }}</span>
+            <span class="story-tag">{{ nonSpectatorPlayerCount }} players</span>
+          </div>
+        </div>
+
+        <!-- Player list -->
+        <div class="sidebar-section">
+          <div class="sidebar-label">Players</div>
+          <div class="player-list">
+            <div class="player-row" *ngFor="let player of players; let i = index">
+              <div class="player-left">
+                <div class="player-av" [ngClass]="getAvatarColorClass(i)">
+                  {{ player.name.charAt(0).toUpperCase() }}
+                </div>
+                <span class="player-name">{{ player.name }}</span>
+                <span class="player-you" *ngIf="player.name === playerName">you</span>
+              </div>
+              <span class="player-status"
+                [ngClass]="{
+                  'voted': !gameState.isRevealed && getPlayerVoteStatus(player) === 'voted',
+                  'waiting': !gameState.isRevealed && getPlayerVoteStatus(player) === 'not-voted',
+                  'value': gameState.isRevealed
+                }">
+                {{ gameState.isRevealed ? getPlayerVote(player) : (getPlayerVoteStatus(player) === 'voted' ? '✓ Voted' : 'Thinking…') }}
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Results section (shown after reveal) -->
+        <div class="sidebar-section sidebar-results-section" *ngIf="gameState.isRevealed && voteResults">
+          <div class="sidebar-label">Results</div>
+
+          <div class="result-stat-group">
+            <div class="result-stat">
+              <div class="result-stat-val">{{ voteAverage }}</div>
+              <div class="result-stat-label">Average</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-val">{{ voteMode }}</div>
+              <div class="result-stat-label">Mode</div>
+            </div>
+            <div class="result-stat">
+              <div class="result-stat-val">{{ voteRange }}</div>
+              <div class="result-stat-label">Range</div>
+            </div>
+          </div>
+
+          <!-- Mini bar chart -->
+          <div class="mini-chart">
+            <div class="mini-bar-wrap" *ngFor="let item of voteResults.cardCounts">
+              <div class="mini-bar"
+                [class.winner]="item.count === voteResults.maxCount"
+                [style.height.px]="getBarHeight(item.count)"></div>
+              <div class="mini-bar-label" [class.winner]="item.count === voteResults.maxCount">{{ item.card }}</div>
+            </div>
+          </div>
+
+          <!-- Final estimate -->
+          <div class="final-wrap">
+            <div class="final-label">Set final estimate</div>
+            <div class="final-row">
+              <input class="final-input" type="text" [value]="voteMode" readonly />
+              <button class="btn-confirm" *ngIf="canStartNewVoting" (click)="resetVotes()">Confirm &amp; Next</button>
+            </div>
+            <button class="btn-revote" (click)="resetVotes()">Re-vote</button>
+          </div>
+        </div>
+
+        <!-- Sidebar footer -->
+        <div class="sidebar-footer">
+          <button class="btn-reveal"
+            *ngIf="!gameState.isRevealed && canRevealVotes"
+            [disabled]="!hasVotesToReveal"
+            (click)="revealVotes(); $event.stopPropagation()">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+              <circle cx="12" cy="12" r="3"/>
+            </svg>
+            Reveal cards
+          </button>
+          <button class="btn-next-story" *ngIf="gameState.isRevealed && canStartNewVoting" (click)="resetVotes()">
+            Next story →
+          </button>
+        </div>
+
+      </aside>
+
+      <!-- ─── CARD DOCK ─── -->
+      <div class="card-dock" [class.card-dock--revealed]="gameState.isRevealed" *ngIf="!isSpectator">
+        <div class="dock-label-wrap">
+          <div class="dock-title">Your estimate</div>
+          <div class="dock-selection">
+            <ng-container *ngIf="!gameState.isRevealed">
+              {{ selectedCard ? 'Selected: ' + selectedCard : 'Select a card' }}
+            </ng-container>
+            <ng-container *ngIf="gameState.isRevealed">Voting complete</ng-container>
+          </div>
+        </div>
+        <div class="cards-row">
+          <div
+            class="vote-card"
+            *ngFor="let card of gameState.cards"
+            [class.selected]="selectedCard === card"
+            [class.coffee-card]="card === '☕'"
+            [class.disabled]="gameState.isRevealed"
+            (click)="selectCard(card)">
+            {{ card }}
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /main -->
+
+  </div><!-- /shell -->
+</div><!-- /shell-wrapper -->
+
+<!-- ─── WELCOME MODAL ─── -->
+<div class="modal-overlay" *ngIf="showWelcomeModal" (click)="$event.stopPropagation()">
+  <div class="welcome-modal" (click)="$event.stopPropagation()">
+    <div class="modal-eyebrow">Planning Session</div>
+    <h2 class="modal-title">Choose your display name</h2>
+
+    <form [formGroup]="nameForm" (ngSubmit)="joinGame()" class="name-form">
+      <div class="modal-field">
+        <label for="playerName">Your name</label>
+        <input
+          id="playerName"
+          type="text"
+          placeholder="Enter your name"
+          formControlName="playerName"
+          (keyup.enter)="joinGame()"
+          autocomplete="off">
+      </div>
+
+      <div class="spectator-toggle">
+        <label class="toggle-label">
+          <input type="checkbox" formControlName="isSpectator">
+          <span class="toggle-switch"></span>
+          <div class="toggle-content">
+            <strong>Join as spectator</strong>
+            <small>Watch without voting</small>
+          </div>
+        </label>
+      </div>
+
+      <button type="submit" class="modal-cta" [disabled]="nameForm.invalid">
+        Continue to session
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </form>
+  </div>
+</div>
+
+<!-- ─── INVITE MODAL ─── -->
+<div class="modal-overlay" *ngIf="showInviteModal" (click)="toggleInviteModal()">
+  <div class="invite-modal" (click)="$event.stopPropagation()">
+    <div class="invite-modal-header">
+      <h2>Invite players</h2>
+      <button class="modal-close" (click)="toggleInviteModal()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="invite-modal-body">
+      <label>Session URL</label>
+      <div class="url-row">
+        <input type="text" [value]="gameUrl" readonly />
+        <button class="btn-copy" (click)="copyInvitationLink()">Copy link</button>
+      </div>
+
+      <div class="qr-row">
+        <button class="btn-qr" (click)="toggleQrCode()">
+          {{ showQrCode ? 'Hide QR Code' : 'Show QR Code' }}
+        </button>
+        <div class="qr-display" *ngIf="showQrCode && qrCodeData">
+          <img [src]="qrCodeData" alt="QR Code" />
+          <span>Scan to join</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── EDIT GAME MODAL ─── -->
+<div class="modal-overlay" *ngIf="showEditGameModal" (click)="closeEditGameModal()">
+  <div class="edit-modal" (click)="$event.stopPropagation()">
+    <div class="invite-modal-header">
+      <h2>Session settings</h2>
+      <button class="modal-close" (click)="closeEditGameModal()">
+        <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+          <path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="invite-modal-body">
+      <form [formGroup]="editGameForm" (ngSubmit)="saveGameChanges()">
+        <div class="modal-field">
+          <label for="editGameName">Session name</label>
+          <input type="text" id="editGameName" formControlName="name" placeholder="Session name" required />
+        </div>
+
+        <div class="modal-field">
+          <label for="editVotingSystem">Voting system</label>
+          <select id="editVotingSystem" formControlName="votingSystem">
+            <option value="fibonacci">Fibonacci (0, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, ?, ☕)</option>
+            <option value="tShirt">T-Shirt Sizes (XS, S, M, L, XL, XXL, ?, ☕)</option>
+            <option value="powers">Powers of 2 (0, 1, 2, 4, 8, 16, 32, 64, ?, ☕)</option>
+            <option value="sequential">Sequential (0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, ?, ☕)</option>
+          </select>
+        </div>
+
+        <div class="modal-field">
+          <label for="editWhoCanReveal">Who can reveal cards</label>
+          <select id="editWhoCanReveal" formControlName="whoCanReveal">
+            <option value="all">All players</option>
+            <option value="moderator">Moderator only</option>
+          </select>
+        </div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn-cancel" (click)="closeEditGameModal()">Cancel</button>
+          <button type="submit" class="modal-cta" [disabled]="editGameForm.invalid || isSaving">
+            {{ isSaving ? 'Saving...' : 'Save changes' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

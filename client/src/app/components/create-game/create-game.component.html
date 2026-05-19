@@ -1,0 +1,458 @@
+﻿<!-- -- HEADER -- -->
+<header class="header">
+  <a class="header-brand" href="#">
+    <div class="brand-icon">
+      <svg viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg">
+        <g transform="rotate(-12, 40, 40)">
+          <rect x="16" y="8" width="44" height="60" rx="6" fill="#e8a042"/>
+          <rect x="16" y="8" width="44" height="60" rx="6" fill="none" stroke="#c47e20" stroke-width="1"/>
+          <path d="M38 22 C38 22 28 30 28 36 C28 39.5 30.8 41.5 34 40.2 C33.2 43 31.5 44.5 31.5 44.5 H44.5 C44.5 44.5 42.8 43 42 40.2 C45.2 41.5 48 39.5 48 36 C48 30 38 22 38 22Z" fill="#7a4a10"/>
+        </g>
+        <rect x="20" y="12" width="44" height="60" rx="6" fill="#ffffff"/>
+        <rect x="20" y="12" width="44" height="60" rx="6" fill="none" stroke="#d0d8e8" stroke-width="1"/>
+        <path d="M42 26 C42 26 32 34 32 40 C32 43.5 34.8 45.5 38 44.2 C37.2 47 35.5 48.5 35.5 48.5 H48.5 C48.5 48.5 46.8 47 46 44.2 C49.2 45.5 52 43.5 52 40 C52 34 42 26 42 26Z" fill="#152b56"/>
+      </svg>
+    </div>
+    <span class="brand-name">Agile Planning Poker</span>
+    <span class="brand-divider"></span>
+    <span class="brand-sub">Enterprise</span>
+  </a>
+  <button class="header-cta" (click)="showGameForm()">Start a Session</button>
+</header>
+
+<!-- -- LANDING PAGE -- -->
+<ng-container *ngIf="!showForm">
+
+  <!-- -- HERO -- -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-eyebrow">
+        <span class="eyebrow-dot"></span>
+        Agile Estimation Platform
+      </div>
+      <h1 class="hero-h1">
+        Align your team<br>
+        <span class="light-word">on every</span>
+        <span class="highlight">story point.</span>
+      </h1>
+      <p class="hero-sub">
+        Structured planning poker sessions for engineering and product teams. Drive consensus, eliminate estimation bias, and keep sprints on track � all in a single, auditable workflow.
+      </p>
+      <div class="hero-cta-group">
+        <button class="btn-cta" (click)="showGameForm()">
+          Start a Session
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+        <button class="btn-secondary" (click)="showGameForm()">View Demo</button>
+      </div>
+      <div class="hero-metrics">
+        <div class="metric-item">
+          <div class="metric-value">Fast</div>
+          <div class="metric-label">Real-time votes</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric-item">
+          <div class="metric-value">Secure</div>
+          <div class="metric-label">Enterprise ready</div>
+        </div>
+        <div class="metric-sep"></div>
+        <div class="metric-item">
+          <div class="metric-value">Simple</div>
+          <div class="metric-label">No friction setup</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual">
+      <div class="mini-session">
+
+        <!-- Mini header bar -->
+        <div class="ms-header">
+          <div class="ms-header-left">
+            <span class="ms-session-label">Q2 Sprint Planning</span>
+            <span class="ms-story-text">API Gateway Rate Limiting</span>
+          </div>
+          <div class="ms-live-badge"><span class="ms-live-dot"></span>LIVE</div>
+        </div>
+
+        <!-- Table + sidebar layout -->
+        <div class="ms-body">
+
+          <!-- Poker table -->
+          <div class="ms-table-wrap">
+            <div class="ms-table">
+              <div class="ms-felt"></div>
+
+              <!-- Centre consensus -->
+              <div class="ms-centre">
+                <div class="ms-centre-label">CONSENSUS</div>
+                <div class="ms-centre-val">5</div>
+                <div class="ms-centre-sub">STORY POINTS</div>
+              </div>
+
+              <!-- Players around oval -->
+              <div class="ms-player" style="top:-14%;left:50%;transform:translate(-50%,0);">
+                <div class="ms-card" style="border-color:#dde5f0;color:#334155;">3</div>
+                <div class="ms-av" style="background:#dbeafe;color:#1d4ed8;">KL</div>
+                <div class="ms-name">Kim</div>
+              </div>
+              <div class="ms-player" style="top:8%;left:88%;transform:translate(-50%,0);">
+                <div class="ms-card" style="background:#fef3e2;border-color:#e8a042;color:#c47e20;">8</div>
+                <div class="ms-av" style="background:#fef3c7;color:#d97706;">RP</div>
+                <div class="ms-name">Ryan</div>
+              </div>
+              <div class="ms-player" style="top:53%;left:102%;transform:translate(-50%,-50%);">
+                <div class="ms-card" style="border-color:#dde5f0;color:#334155;">5</div>
+                <div class="ms-av" style="background:#dcfce7;color:#16a34a;">JM</div>
+                <div class="ms-name">Jordan</div>
+              </div>
+              <div class="ms-player" style="top:97%;left:78%;transform:translate(-50%,0);">
+                <div class="ms-card" style="border-color:#dde5f0;color:#334155;">5</div>
+                <div class="ms-av" style="background:#ede9fe;color:#7c3aed;">PN</div>
+                <div class="ms-name">Pat</div>
+              </div>
+              <div class="ms-player" style="top:97%;left:22%;transform:translate(-50%,0);">
+                <div class="ms-card" style="background:#dcfce7;border-color:rgba(22,163,74,0.4);color:#16a34a;">2</div>
+                <div class="ms-av" style="background:#ccfbf1;color:#0d9488;">TW</div>
+                <div class="ms-name">Taylor</div>
+              </div>
+              <div class="ms-player" style="top:53%;left:-2%;transform:translate(-50%,-50%);">
+                <div class="ms-card" style="border-color:#dde5f0;color:#334155;">5</div>
+                <div class="ms-av" style="background:#fee2e2;color:#dc2626;">MR</div>
+                <div class="ms-name">Morgan</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Mini sidebar -->
+          <div class="ms-sidebar">
+            <div class="ms-sb-section">
+              <div class="ms-sb-label">Players</div>
+              <div class="ms-plist">
+                <div class="ms-prow"><div class="ms-pav" style="background:#dbeafe;color:#1d4ed8;">KL</div><span class="ms-pname">Kim</span><span class="ms-pval">3</span></div>
+                <div class="ms-prow"><div class="ms-pav" style="background:#fef3c7;color:#d97706;">RP</div><span class="ms-pname">Ryan</span><span class="ms-pval" style="color:#c47e20;">8</span></div>
+                <div class="ms-prow"><div class="ms-pav" style="background:#dcfce7;color:#16a34a;">JM</div><span class="ms-pname">Jordan</span><span class="ms-pval">5</span></div>
+                <div class="ms-prow"><div class="ms-pav" style="background:#ede9fe;color:#7c3aed;">PN</div><span class="ms-pname">Pat</span><span class="ms-pval">5</span></div>
+                <div class="ms-prow"><div class="ms-pav" style="background:#ccfbf1;color:#0d9488;">TW</div><span class="ms-pname">Taylor</span><span class="ms-pval" style="color:#16a34a;">2</span></div>
+                <div class="ms-prow"><div class="ms-pav" style="background:#fee2e2;color:#dc2626;">MR</div><span class="ms-pname">Morgan</span><span class="ms-pval">5</span></div>
+              </div>
+            </div>
+            <div class="ms-sb-section">
+              <div class="ms-sb-label">Results</div>
+              <div class="ms-stats">
+                <div class="ms-stat"><div class="ms-sv">4.7</div><div class="ms-sl">Avg</div></div>
+                <div class="ms-stat"><div class="ms-sv">5</div><div class="ms-sl">Mode</div></div>
+                <div class="ms-stat"><div class="ms-sv">2&#x2013;8</div><div class="ms-sl">Range</div></div>
+              </div>
+              <div class="ms-chart">
+                <div class="ms-bw"><div class="ms-b ms-bwin" style="height:36px"></div><div class="ms-bl ms-blwin">5</div></div>
+                <div class="ms-bw"><div class="ms-b" style="height:16px"></div><div class="ms-bl">3</div></div>
+                <div class="ms-bw"><div class="ms-b" style="height:12px"></div><div class="ms-bl">8</div></div>
+                <div class="ms-bw"><div class="ms-b" style="height:9px"></div><div class="ms-bl">2</div></div>
+              </div>
+              <div class="ms-final">
+                <div class="ms-final-box">5</div>
+                <button class="ms-final-btn">Save &amp; Next &#x2192;</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Mini dock -->
+        <div class="ms-dock">
+          <span class="ms-dock-lbl">Your estimate</span>
+          <div class="ms-dock-row">
+            <div class="ms-dc">1</div>
+            <div class="ms-dc">2</div>
+            <div class="ms-dc">3</div>
+            <div class="ms-dc ms-dc-sel">5</div>
+            <div class="ms-dc">8</div>
+            <div class="ms-dc">13</div>
+            <div class="ms-dc">21</div>
+            <div class="ms-dc">?</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- -- HOW IT WORKS -- -->
+  <section class="how-section">
+    <div class="section-eyebrow">Workflow</div>
+    <div class="section-title">Four steps to <strong>consensus</strong></div>
+    <div class="steps-row">
+      <div class="step-item">
+        <div class="step-num">01</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 19 19" fill="none">
+            <rect x="2.5" y="3.5" width="14" height="12" rx="2" stroke="#3868b0" stroke-width="1.2"/>
+            <line x1="5.5" y1="7.5" x2="13.5" y2="7.5" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+            <line x1="5.5" y1="10.5" x2="10.5" y2="10.5" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="step-title">Import Backlog</div>
+        <div class="step-desc">Connect your Jira or Azure DevOps board. Stories load automatically with context and acceptance criteria intact.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">02</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 19 19" fill="none">
+            <circle cx="9.5" cy="9.5" r="6.5" stroke="#3868b0" stroke-width="1.2"/>
+            <path d="M9.5 6v4l2.5 2.5" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="step-title">Open Session</div>
+        <div class="step-desc">Invite the team via secure link. Participants join without account creation � no friction, no delay.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">03</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 19 19" fill="none">
+            <rect x="3" y="4" width="8" height="11" rx="1.5" stroke="#3868b0" stroke-width="1.2"/>
+            <rect x="7" y="3" width="8" height="11" rx="1.5" stroke="#3868b0" stroke-width="1.2"/>
+            <line x1="10" y1="8" x2="13" y2="8" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="step-title">Cast Votes</div>
+        <div class="step-desc">Everyone votes simultaneously. Cards stay hidden until all participants have submitted, preventing anchoring bias.</div>
+      </div>
+      <div class="step-item">
+        <div class="step-num">04</div>
+        <div class="step-icon-wrap">
+          <svg viewBox="0 0 19 19" fill="none">
+            <path d="M3.5 13.5l4-5 3 3 5.5-8" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="step-title">Record &amp; Sync</div>
+        <div class="step-desc">Agreed estimates are written back to your issue tracker instantly. Full audit trail retained per sprint.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- FEATURES -- -->
+  <section class="features-section">
+    <div class="section-eyebrow">Capabilities</div>
+    <div class="section-title" style="margin-bottom:32px;">Built for <strong>enterprise delivery</strong></div>
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 21 21" fill="none">
+            <circle cx="10.5" cy="10.5" r="7" stroke="#3868b0" stroke-width="1.2"/>
+            <path d="M10.5 6.5v4.5l2.5 2.5" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-title">Real-time synchronization</div>
+        <div class="feat-desc">WebSocket-driven sessions with sub-100ms latency. Card reveals, vote counts, and discussion threads update live across all participants.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 21 21" fill="none">
+            <rect x="3" y="5" width="15" height="11" rx="2" stroke="#3868b0" stroke-width="1.2"/>
+            <path d="M7 9.5h7M7 12.5h5" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-title">Jira &amp; ADO integration</div>
+        <div class="feat-desc">Bi-directional sync with Jira Software and Azure DevOps. Estimates are posted directly to story fields without manual entry.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 21 21" fill="none">
+            <path d="M4 15l4.5-5.5 3 3.5 5.5-8.5" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feat-title">Velocity analytics</div>
+        <div class="feat-desc">Sprint-over-sprint estimation accuracy reports. Identify outliers, track team calibration, and export CSV reports for stakeholder review.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 21 21" fill="none">
+            <circle cx="10.5" cy="7.5" r="3" stroke="#3868b0" stroke-width="1.2"/>
+            <path d="M4.5 18c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-title">Role-based access</div>
+        <div class="feat-desc">Scrum Masters, Product Owners, and Developers get scoped permissions. Observers can watch without voting. Configurable per workspace.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 21 21" fill="none">
+            <rect x="4" y="3" width="13" height="15" rx="2" stroke="#3868b0" stroke-width="1.2"/>
+            <path d="M7 8h7M7 11h5M7 14h4" stroke="#3868b0" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="feat-title">Full audit trail</div>
+        <div class="feat-desc">Every vote, re-estimate, and discussion thread is logged with timestamps and user identity � satisfying internal compliance and retrospective requirements.</div>
+      </div>
+      <div class="feature-card">
+        <div class="feat-icon">
+          <svg viewBox="0 0 21 21" fill="none">
+            <path d="M10.5 3l1.75 5H18l-4.5 3.25 1.75 5-4.75-3.5-4.75 3.5 1.75-5L3 8h5.75L10.5 3z" stroke="#3868b0" stroke-width="1.2" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div class="feat-title">Custom card decks</div>
+        <div class="feat-desc">Fibonacci, T-shirt sizing, or define your own scale. Deck configuration is saved per team and can be locked by workspace administrators.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- -- CTA BAND -- -->
+  <section class="cta-band">
+    <div class="cta-band-content">
+      <div class="cta-band-eyebrow">Ready to get started?</div>
+      <div class="cta-band-title">Run your first session<br>in under two minutes.</div>
+      <div class="cta-band-sub">No installation. No account required for participants.</div>
+    </div>
+    <div class="cta-band-actions">
+      <button class="btn-band-primary" (click)="showGameForm()">
+        Start a Session
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+      <button class="btn-band-ghost" (click)="showGameForm()">View Demo</button>
+    </div>
+  </section>
+
+  <!-- -- FOOTER -- -->
+  <footer class="footer">
+    <div class="footer-left">
+      <span class="footer-brand">Agile Planning Poker &copy; 2025</span>
+      <div class="footer-links">
+        <a class="footer-link" href="#">Privacy Policy</a>
+        <a class="footer-link" href="#">Terms of Use</a>
+        <a class="footer-link" href="#">Support</a>
+        <a class="footer-link" href="#">Changelog</a>
+      </div>
+    </div>
+    <div class="footer-right">
+      Enterprise Edition &nbsp;&middot;&nbsp; SOC 2 Type II &nbsp;&middot;&nbsp; SSO / SAML 2.0
+    </div>
+  </footer>
+
+</ng-container>
+
+<!-- -- CREATE GAME FORM -- -->
+<div class="form-overlay" *ngIf="showForm">
+  <div class="form-container">
+    <button class="back-btn" (click)="showForm = false">
+      <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+        <path d="M13 8H3M7 4l-4 4 4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      Back
+    </button>
+
+    <div class="form-header">
+      <div class="form-eyebrow">New Session</div>
+      <h2 class="form-title">Configure your <strong>planning session</strong></h2>
+    </div>
+
+    <form [formGroup]="gameForm" (ngSubmit)="createGame()" class="game-form">
+      <div class="form-group">
+        <label for="gameName">Session name</label>
+        <input
+          type="text"
+          id="gameName"
+          formControlName="name"
+          placeholder="Enter session name"
+          required>
+      </div>
+
+      <div class="form-group">
+        <label for="votingSystem">Voting system</label>
+        <select id="votingSystem" formControlName="votingSystem">
+          <option *ngFor="let system of votingSystems; trackBy: trackByValue" [value]="system.value">
+            {{ system.label }}
+          </option>
+        </select>
+      </div>
+
+      <div class="advanced-settings-link" *ngIf="!showAdvancedSettings">
+        <a href="#" (click)="toggleAdvancedSettings(); $event.preventDefault()">Show advanced settings...</a>
+      </div>
+
+      <div class="advanced-settings" *ngIf="showAdvancedSettings">
+        <div class="advanced-settings-header">
+          <h3>Advanced Settings</h3>
+          <a href="#" (click)="toggleAdvancedSettings(); $event.preventDefault()">Hide advanced settings</a>
+        </div>
+
+        <div class="form-group">
+          <label for="whoCanReveal">Who can reveal cards</label>
+          <select id="whoCanReveal" formControlName="whoCanReveal">
+            <option *ngFor="let option of permissionOptions; trackBy: trackByValue" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <small class="help-text">Players who are allowed to flip cards and show results.</small>
+        </div>
+
+        <div class="form-group">
+          <label for="whoCanManage">Who can manage issues</label>
+          <select id="whoCanManage" formControlName="whoCanManage">
+            <option *ngFor="let option of permissionOptions; trackBy: trackByValue" [value]="option.value">
+              {{ option.label }}
+            </option>
+          </select>
+          <small class="help-text">Players who are allowed to create, delete and edit issues in the sidebar.</small>
+        </div>
+
+        <div class="toggle-group">
+          <div class="toggle-item">
+            <label class="toggle-label">
+              <input type="checkbox" formControlName="autoReveal">
+              <span class="toggle-switch"></span>
+              <div class="toggle-content">
+                <strong>Auto-reveal cards</strong>
+                <small>Show cards automatically after everyone voted.</small>
+              </div>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <label class="toggle-label">
+              <input type="checkbox" formControlName="enableFunFeatures">
+              <span class="toggle-switch"></span>
+              <div class="toggle-content">
+                <strong>Enable fun features</strong>
+                <small>Allow players to throw projectiles at each other in this game.</small>
+              </div>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <label class="toggle-label">
+              <input type="checkbox" formControlName="showAverage">
+              <span class="toggle-switch"></span>
+              <div class="toggle-content">
+                <strong>Show average in results</strong>
+                <small>Include the average value in the results of the voting.</small>
+              </div>
+            </label>
+          </div>
+          <div class="toggle-item">
+            <label class="toggle-label">
+              <input type="checkbox" formControlName="showCountdown">
+              <span class="toggle-switch"></span>
+              <div class="toggle-content">
+                <strong>Show countdown animation</strong>
+                <small>A countdown is shown when revealing cards to ensure last-second votes are recorded.</small>
+              </div>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" class="create-button" [disabled]="gameForm.invalid || isCreating">
+        <span *ngIf="!isCreating">
+          Create Session
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span *ngIf="isCreating">Creating...</span>
+      </button>
+    </form>
+  </div>
+</div>

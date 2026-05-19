@@ -1,0 +1,23 @@
+{
+  "name": "agile-planning-poker-app",
+  "version": "1.0.0",
+  "description": "Agile Planning Poker application with Angular 18 frontend and Node.js Express backend",
+  "main": "server/index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd server && npm run dev",
+    "client": "cd client && npx ng serve",
+    "build": "cd client && npx ng build",
+    "build:prod": "cd client && npx ng build --configuration production",
+    "start": "cd server && npm start",
+    "install:all": "npm install && cd server && npm install && cd ../client && npm install",
+    "test": "cd client && npx ng test",
+    "e2e": "cd client && npx ng e2e"
+  },
+  "keywords": ["angular", "nodejs", "planning-poker", "scrum", "agile", "estimation"],
+  "author": "Planning Poker Team",
+  "license": "MIT",
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

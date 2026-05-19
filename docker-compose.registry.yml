@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  agilepoker:
+    image: docker.myxidisk.com/agilepoker:latest
+    container_name: agilepoker
+    ports:
+      - "8089:8089"
+    environment:
+      - NODE_ENV=production
+      - PORT=8089
+    restart: unless-stopped
+    volumes:
+      # Optional: Persist game data (if you add database later)
+      - agilepoker-data:/app/data
+    networks:
+      - agilepoker-network
+    labels:
+      - "com.docker.compose.project=agilepoker"
+      - "com.docker.compose.service=agilepoker"
+
+volumes:
+  agilepoker-data:
+    driver: local
+
+networks:
+  agilepoker-network:
+    driver: bridge

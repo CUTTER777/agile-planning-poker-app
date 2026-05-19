@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <!-- App icon background -->
+  <rect width="512" height="512" rx="96" fill="#050c1a"/>
+
+  <!-- Amber card (rotated behind) -->
+  <g transform="rotate(-12, 256, 256)">
+    <rect x="118" y="80" width="256" height="352" rx="28" fill="#e8a042"/>
+    <rect x="118" y="80" width="256" height="352" rx="28" fill="none" stroke="#c47e20" stroke-width="5"/>
+    <!-- Flame on amber card (darker) -->
+    <path d="M256 152 C256 152 196 198 196 234 C196 255 210 267 228 260 C224 278 214 286 214 286 H298 C298 286 288 278 284 260 C302 267 316 255 316 234 C316 198 256 152 256 152Z" fill="#7a4a10"/>
+  </g>
+
+  <!-- White card (front) -->
+  <rect x="138" y="100" width="256" height="352" rx="28" fill="#ffffff"/>
+  <rect x="138" y="100" width="256" height="352" rx="28" fill="none" stroke="#d0d8e8" stroke-width="4"/>
+
+  <!-- Flame on white card (navy) -->
+  <path d="M266 172 C266 172 206 218 206 254 C206 275 220 287 238 280 C234 298 224 306 224 306 H308 C308 306 298 298 294 280 C312 287 326 275 326 254 C326 218 266 172 266 172Z" fill="#152b56"/>
+</svg>
