@@ -347,8 +347,6 @@ export class GameSessionComponent implements OnInit, OnDestroy {
 
   copyInvitationLink(): void {
     navigator.clipboard.writeText(this.gameUrl).then(() => {
-      // Could add a toast notification here
-      console.log('Link copied to clipboard');
       // Close the modal after copying
       this.showInviteModal = false;
     });
@@ -487,9 +485,7 @@ export class GameSessionComponent implements OnInit, OnDestroy {
       cards: this.gameState.cards
     };
     this.socketService.updateGameSettings(updateData);
-    
-    console.log('Game updated and broadcast:', formValue);
-    
+
     // Close modal after a brief delay to show saving state
     setTimeout(() => {
       this.closeEditGameModal();
@@ -564,38 +560,6 @@ export class GameSessionComponent implements OnInit, OnDestroy {
     }
     
     return 1.0; // Normal size for 4 or fewer players
-  }
-
-  // Test method to add one player at a time (for development/testing)
-  addTestPlayer(): void {
-    const testNames = ['Alice', 'Bob', 'Charlie', 'Diana', 'Eve', 'Frank', 'Grace', 'Henry', 'Ivy', 'Jack', 'Kate', 'Liam', 'Maya', 'Noah', 'Olivia'];
-    const testPlayerCount = this.players.filter(p => p.id.startsWith('test_')).length;
-    
-    if (testPlayerCount < testNames.length) {
-      const newPlayer: Player = {
-        id: `test_${testPlayerCount}`,
-        name: testNames[testPlayerCount],
-        isSpectator: testPlayerCount === 9 // Make 10th player a spectator for testing
-      };
-      
-      this.players.push(newPlayer);
-      console.log(`Added test player: ${newPlayer.name}. Total players: ${this.players.length}`);
-    } else {
-      console.log('Maximum test players reached (15)');
-    }
-  }
-
-  // Remove all test players
-  removeTestPlayers(): void {
-    const originalCount = this.players.length;
-    this.players = this.players.filter(p => !p.id.startsWith('test_'));
-    const removedCount = originalCount - this.players.length;
-    console.log(`Removed ${removedCount} test players. Remaining players: ${this.players.length}`);
-  }
-
-  // Check if there are any test players
-  hasTestPlayers(): boolean {
-    return this.players.some(p => p.id.startsWith('test_'));
   }
 
   getParticipantPosition(i: number): { left: string; top: string } {
