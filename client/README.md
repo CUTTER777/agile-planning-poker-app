@@ -90,7 +90,7 @@ client/
 ### Development Server
 ```bash
 ng serve
-# Navigate to http://localhost:4200/
+# Navigate to http://localhost:8080/
 # Auto-reload on file changes
 ```
 

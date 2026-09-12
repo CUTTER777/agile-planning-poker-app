@@ -1,6 +1,6 @@
-# Agile Planning Poker Application
+# Agile Planning Poker
 
-A modern, full-featured Planning Poker application built with Angular 18 and Node.js Express server that replicates and enhances the functionality of planningpokeronline.com for agile estimation sessions.
+A modern, open-source Planning Poker application for agile estimation sessions, built with Angular 18 and a Node.js / Express backend with real-time WebSocket support.
 
 ![Planning Poker](https://img.shields.io/badge/Planning%20Poker-Real%20Time-blue)
 ![Angular](https://img.shields.io/badge/Angular-18-red)
@@ -125,7 +125,7 @@ agile-planning-poker-app/
 
 1. **Clone the repository**
 ```bash
-git clone <repository-url>
+git clone https://github.com/your-username/agile-planning-poker-app.git
 cd agile-planning-poker-app
 ```
 
@@ -140,7 +140,7 @@ npm run dev
 ```
 
 This will start:
-- Frontend server at: `http://localhost:4200`
+- Frontend server at: `http://localhost:8080`
 - Backend server at: `http://localhost:3000`
 
 ### Individual Development
@@ -300,12 +300,12 @@ npm test                   # Run backend tests (when implemented)
 
 ### Build the Image
 ```bash
-docker build --no-cache -f Dockerfile -t cutter777/planning-poker-app:master .
+docker build --no-cache -f Dockerfile -t <your-dockerhub-username>/planning-poker-app:latest .
 ```
 
 ### Push to Docker Hub
 ```bash
-docker push cutter777/planning-poker-app:master
+docker push <your-dockerhub-username>/planning-poker-app:latest
 ```
 
 > **Note:** You must be logged in to Docker Hub before pushing (`docker login`).
@@ -385,13 +385,14 @@ docker push cutter777/planning-poker-app:master
 
 ## 📄 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the **MIT License** — see the [LICENSE](LICENSE) file for details.
+
+You are free to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of this software, subject to the conditions in the license.
 
 ## 🙏 Acknowledgments
 
-- Inspired by planningpokeronline.com
-- Built with modern web technologies
-- Community-driven development approach
+- Inspired by the planning poker estimation technique popularized in agile / Scrum teams
+- Built with modern open-source web technologies
 
 ## 📧 Support
 
@@ -403,48 +404,17 @@ For support, feature requests, or bug reports:
 ---
 
 **Happy Planning Poker! 🎯🃏**
-│   ├── src/
-│   │   ├── app/
-│   │   │   ├── components/
-│   │   │   │   ├── create-game/     # Game creation page
-│   │   │   │   └── game-session/    # Game session page
-│   │   │   └── services/
-│   │   │       ├── game.service.ts  # HTTP API service
-│   │   │       └── socket.service.ts # Socket.io service
-│   │   └── styles.scss              # Global styles
-│   └── package.json
-├── server/                          # Node.js backend
-│   ├── index.js                     # Express + Socket.io server
-│   └── package.json
-└── package.json                     # Root package.json
-```
 
-## Getting Started
-
-### Prerequisites
-- Node.js (v16 or higher recommended)
-- npm or yarn package manager
-
-### Installation
-
-1. **Clone and install dependencies:**
-   ```bash
-   git clone <repository-url>
-   cd agile-planning-poker-app
-   npm run install:all
-   ```
-
-2. **Start development servers:**
    ```bash
    npm run dev
    ```
 
    This starts:
    - Backend server on `http://localhost:3000`
-   - Frontend Angular dev server on `http://localhost:4200`
+   - Frontend Angular dev server on `http://localhost:8080`
 
 3. **Open the application:**
-   Navigate to `http://localhost:4200` in your browser
+   Navigate to `http://localhost:8080` in your browser
 
 ### Available Scripts
 
@@ -467,7 +437,7 @@ From the server directory:
 
 ### Creating a Game
 
-1. Visit the home page at `http://localhost:4200`
+1. Visit the home page at `http://localhost:8080`
 2. Fill in the game configuration:
    - **Game Name**: Enter a descriptive name for your planning session
    - **Voting System**: Choose from Fibonacci, T-Shirt sizes, Powers of 2, or Sequential
@@ -571,7 +541,7 @@ From the server directory:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is source-available and released for personal and non-commercial use only. Commercial reproduction, resale, or redistribution requires prior written consent from Xidisk Software Solutions. See the [License section](#-license) above for full terms.
 
 ## Deployment
 
@@ -595,13 +565,11 @@ CMD ["npm", "start"]
 
 ### Docker Repository & Deployment
 
-This application is available in a private Docker repository for production deployment.
+You can push this image to any Docker registry (Docker Hub, GitHub Container Registry, a private registry, etc.).
 
-**Repository Details:**
-- **Registry**: `docker.myxidisk.com`
-- **Image Name**: `agilepoker:latest`
+**Example using `your-registry.example.com` — replace with your own registry URL.**
 
-#### Building and Deploying to Remote Repository
+#### Building and Deploying to a Remote Registry
 
 1. **Build the Docker Image**
    ```bash
@@ -611,34 +579,34 @@ This application is available in a private Docker repository for production depl
 
 2. **Tag the Image for Remote Repository**
    ```bash
-   # Tag the image for the remote registry
-   docker tag agilepoker:latest docker.myxidisk.com/agilepoker:latest
+   # Tag the image for your registry
+   docker tag agilepoker:latest your-registry.example.com/agilepoker:latest
    ```
 
 3. **Login to Remote Registry**
    ```bash
-   # Login to the remote Docker registry
-   docker login docker.myxidisk.com
+   # Login to your Docker registry
+   docker login your-registry.example.com
    ```
 
 4. **Push to Remote Repository**
    ```bash
-   # Push the image to the remote registry
-   docker push docker.myxidisk.com/agilepoker:latest
+   # Push the image to your registry
+   docker push your-registry.example.com/agilepoker:latest
    ```
 
 #### Pulling and Running from Remote Repository
 
 1. **Pull from Remote Repository**
    ```bash
-   # Pull the latest image from the remote registry
-   docker pull docker.myxidisk.com/agilepoker:latest
+   # Pull the latest image from your registry
+   docker pull your-registry.example.com/agilepoker:latest
    ```
 
 2. **Run the Container**
    ```bash
    # Run the container from the remote image
-   docker run -p 3000:3000 docker.myxidisk.com/agilepoker:latest
+   docker run -p 3000:3000 your-registry.example.com/agilepoker:latest
    ```
 
 #### Complete Build and Deploy Script
@@ -648,23 +616,33 @@ For convenience, you can use this complete script to build, tag, and deploy:
 ```bash
 #!/bin/bash
 # Build, tag, and push to remote repository
+REGISTRY="your-registry.example.com"  # Set your registry here
 
 echo "Building Docker image..."
 docker build -t agilepoker:latest .
 
 echo "Tagging image for remote registry..."
-docker tag agilepoker:latest docker.myxidisk.com/agilepoker:latest
+docker tag agilepoker:latest $REGISTRY/agilepoker:latest
 
 echo "Pushing to remote registry..."
-docker push docker.myxidisk.com/agilepoker:latest
+docker push $REGISTRY/agilepoker:latest
 
-echo "Deployment complete! Image available at docker.myxidisk.com/agilepoker:latest"
+echo "Deployment complete! Image available at $REGISTRY/agilepoker:latest"
 ```
 
 ### Environment Variables
 - `PORT` - Server port (default: 3000)
 - `NODE_ENV` - Environment mode (development/production)
+- `ALLOWED_ORIGINS` - Comma-separated list of additional allowed CORS origins (e.g. `https://poker.example.com,https://www.example.com`)
 
 ---
+
+## About
+
+**Agile Planning Poker** (March 2026)
+
+Developed by **Xidisk Software Solutions**
+
+© 2026 Xidisk Software Solutions. All rights reserved.
 
 Built with ❤️ using Angular 18 and Node.js

@@ -8,9 +8,21 @@ const path = require('path');
 
 const app = express();
 const server = createServer(app);
+
+const PORT = process.env.PORT || 3000;
+
+// Build allowed origins from environment variable; localhost defaults only in non-production
+const devOrigins = process.env.NODE_ENV !== 'production'
+  ? [`http://localhost:8080`, `http://localhost:3000`, `http://localhost:${PORT}`]
+  : [];
+const extraOrigins = process.env.ALLOWED_ORIGINS
+  ? process.env.ALLOWED_ORIGINS.split(',').map(o => o.trim()).filter(Boolean)
+  : [];
+const allowedOrigins = [...devOrigins, ...extraOrigins];
+
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:4200", "http://localhost:3000", "http://localhost:8089", "https://poker.myxidisk.com", "http://poker.myxidisk.com"],
+    origin: allowedOrigins,
     methods: ["GET", "POST"],
     allowedHeaders: ["Content-Type"],
     credentials: true
@@ -22,11 +34,9 @@ const io = new Server(server, {
   path: '/socket.io/'
 });
 
-const PORT = process.env.PORT || 3000;
-
 // Middleware
 app.use(cors({
-  origin: ["http://localhost:4200", "http://localhost:3000", "http://localhost:8089", "https://poker.myxidisk.com", "http://poker.myxidisk.com"],
+  origin: allowedOrigins,
   credentials: true
 }));
 app.use(express.json());
@@ -170,7 +180,8 @@ app.post('/api/games', async (req, res) => {
     games.set(game.id, game);
 
     // Generate QR code for the game URL
-    const gameUrl = `http://localhost:4200/game/${game.id}`;
+    const baseUrl = process.env.BASE_URL || `http://localhost:8080`;
+    const gameUrl = `${baseUrl}/game/${game.id}`;
     const qrCode = await QRCode.toDataURL(gameUrl);
 
     res.json({
